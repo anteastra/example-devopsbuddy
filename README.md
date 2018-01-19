@@ -1,0 +1,2 @@
+# example-devopsbuddy
+Web skeleton
