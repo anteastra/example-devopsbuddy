@@ -1,5 +1,7 @@
 package com.anteastra.devopsbuddy.backend.persistence.domain.backend;
 
+import com.anteastra.devopsbuddy.enums.PlansEnum;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -13,6 +15,11 @@ public class Plan implements Serializable {
     private String name;
 
     public Plan() {
+    }
+
+    public Plan(PlansEnum plansEnum) {
+        this.id = plansEnum.getId();
+        this.name = plansEnum.getPlanName();
     }
 
     public int getId() {
