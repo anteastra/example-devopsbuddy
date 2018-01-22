@@ -1,8 +1,10 @@
 package com.anteastra.devopsbuddy.web.controllers;
 
+import com.anteastra.devopsbuddy.backend.service.EmailService;
 import com.anteastra.devopsbuddy.web.domain.frontend.FeedbackPojo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,6 +24,9 @@ public class ContactController {
     /** The Contact Us view name. */
     private static final String CONTACT_US_VIEW_NAME = "contact/contact";
 
+    @Autowired
+    private EmailService emailService;
+
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String contactGet(ModelMap model) {
         FeedbackPojo feedbackPojo = new FeedbackPojo();
@@ -32,7 +37,7 @@ public class ContactController {
     @RequestMapping(value = "/contact", method = RequestMethod.POST)
     public String contactPost(@ModelAttribute(FEEDBACK_MODEL_KEY) FeedbackPojo feedback) {
         LOG.debug("Feedback POJO content: {}", feedback);
-        //emailService.sendFeedbackEmail(feedback);
+        emailService.sendFeedbackEmail(feedback);
         return ContactController.CONTACT_US_VIEW_NAME;
     }
 }
