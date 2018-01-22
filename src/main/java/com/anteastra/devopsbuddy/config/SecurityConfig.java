@@ -3,6 +3,7 @@ package com.anteastra.devopsbuddy.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,8 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Autowired
 //    private UserSecurityService userSecurityService;
 //
-//    @Autowired
-//    private Environment env;
+    @Autowired
+    private Environment env;
 
     /** The encryption SALT. */
     private static final String SALT = "fdalkjalk;3jlwf00sfaof";
@@ -50,11 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//        List<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
-//        if (activeProfiles.contains("dev")) {
-//            http.csrf().disable();
-//            http.headers().frameOptions().disable();
-//        }
+        List<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+        if (activeProfiles.contains("dev")) {
+            http.csrf().disable();
+            http.headers().frameOptions().disable();
+        }
 
         http
                 .authorizeRequests()
